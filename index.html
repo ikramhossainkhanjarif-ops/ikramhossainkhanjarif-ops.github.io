@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ikram Hossain Khan Jarif | Portfolio</title>
+    <!-- Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS CSS for Mobile-Optimized Scroll Animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        /* CSS RESET & VARIABLES */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        html { scroll-behavior: smooth; }
+        body { background-color: #0f172a; color: #f8fafc; overflow-x: hidden; }
+        a { text-decoration: none; color: inherit; }
+
+        /* NAVBAR & MOBILE MENU */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 5%; position: fixed; width: 100%; top: 0; z-index: 1000;
+            background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px);
+            border-bottom: 1px solid #1e293b;
+        }
+        .logo { font-size: 22px; font-weight: 700; color: #38bdf8; }
+        
+        .nav-links { display: flex; list-style: none; gap: 25px; }
+        .nav-links a { font-weight: 500; transition: color 0.3s ease; font-size: 15px; }
+        .nav-links a:hover { color: #38bdf8; }
+        
+        /* Hamburger Icon (Hidden on Desktop) */
+        .menu-toggle { display: none; font-size: 24px; color: #f8fafc; cursor: pointer; }
+
+        /* HERO SECTION */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center; padding: 100px 5% 50px 5%;
+            background: radial-gradient(circle at 50% 30%, #1e293b 0%, #0f172a 70%);
+        }
+        .hero-text h1 { font-size: 38px; font-weight: 700; margin-bottom: 10px; line-height: 1.2; }
+        .hero-text h2 { font-size: 24px; color: #94a3b8; font-weight: 400; height: 36px; }
+        .highlight { color: #38bdf8; }
+        .hero-p { margin-top: 15px; color: #94a3b8; max-width: 500px; font-size: 14px; line-height: 1.6; }
+        
+        /* PROJECTS SECTION */
+        .projects { padding: 80px 5%; background-color: #1e293b; }
+        .section-title { font-size: 28px; text-align: center; margin-bottom: 40px; position: relative; }
+        .section-title::after { content: ''; display: block; width: 50px; height: 4px; background: #38bdf8; margin: 10px auto 0; border-radius: 2px; }
+        
+        .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .project-card {
+            background: #0f172a; padding: 20px; border-radius: 12px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            border: 1px solid #334155;
+        }
+        /* Mobile Touch Friendly Hover/Active state */
+        .project-card:hover, .project-card:active {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(56, 189, 248, 0.1);
+            border-color: #38bdf8;
+        }
+        .project-card h3 { font-size: 18px; margin-bottom: 10px; color: #38bdf8; }
+        .project-card p { font-size: 13px; color: #94a3b8; line-height: 1.5; }
+        .project-link { display: inline-block; margin-top: 15px; color: #38bdf8; font-weight: 600; font-size: 14px; }
+
+        /* CTA BUTTON */
+        .btn {
+            display: inline-block; padding: 12px 24px; background: #38bdf8; color: #0f172a;
+            border-radius: 8px; font-weight: 600; margin-top: 25px; font-size: 14px;
+            transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(56, 189, 248, 0.2);
+            -webkit-tap-highlight-color: transparent; /* Removes flash on mobile click */
+        }
+        .btn:hover { background: #0ea5e9; transform: translateY(-2px); }
+
+        /* --- MOBILE RESPONSIVE BREAKPOINT --- */
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            
+            /* Responsive Mobile Menu Drawer */
+            .nav-links {
+                position: fixed; top: 60px; right: -100%; width: 70%; height: calc(100vh - 60px);
+                background: rgba(15, 23, 42, 0.98); flex-direction: column; align-items: center;
+                padding-top: 50px; gap: 40px; transition: 0.4s cubic-bezier(0.1, 1, 0.1, 1);
+                box-shadow: -10px 0 20px rgba(0,0,0,0.3); border-left: 1px solid #1e293b;
+            }
+            .nav-links.active { right: 0; }
+            .nav-links a { font-size: 18px; }
+
+            /* Text resizing for mobile screens */
+            .hero-text h1 { font-size: 32px; }
+            .hero-text h2 { font-size: 20px; height: 30px; }
+            .section-title { font-size: 24px; }
+        }         /* CONTACT SECTION - নতুন ও সুন্দর স্টাইল */
+        .contact { padding: 80px 5%; background-color: #0f172a; text-align: center; }
+        .contact-p { color: #94a3b8; font-size: 14px; max-width: 450px; margin: 0 auto 30px; line-height: 1.6; }
+        
+        .contact-buttons { 
+            display: flex; 
+            flex-wrap: wrap; /* মোবাইল স্ক্রিনে পাশাপাশি না ধরলে নিচে নেমে যাবে */
+            justify-content: center; 
+            gap: 15px; 
+            margin-top: 20px;
+        }
+        
+        .contact-btn {
+            display: inline-flex; align-items: center; gap: 10px; padding: 12px 24px;
+            border-radius: 30px; font-weight: 600; font-size: 14px; transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); -webkit-tap-highlight-color: transparent;
+        }
+        
+        .whatsapp-btn { background: #25d366; color: #fff; }
+        .whatsapp-btn:hover { background: #128c7e; transform: translateY(-2px); }
+        
+        .email-btn { background: #38bdf8; color: #0f172a; }
+        .email-btn:hover { background: #0ea5e9; transform: translateY(-2px); }         /* HERO SECTION (ছবি ও টেক্সট রেসপন্সিভ স্টাইল) */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center; padding: 100px 5% 50px 5%;
+            background: radial-gradient(circle at 50% 30%, #1e293b 0%, #0f172a 70%);
+        }
+        .hero-content {
+            display: flex; align-items: center; justify-content: space-between;
+            width: 100%; gap: 30px;
+        }
+        .hero-text { flex: 1; }
+        .hero-text h1 { font-size: 38px; font-weight: 700; margin-bottom: 10px; line-height: 1.2; }
+        .hero-text h2 { font-size: 24px; color: #94a3b8; font-weight: 400; height: 36px; }
+        .highlight { color: #38bdf8; }
+        .hero-p { margin-top: 15px; color: #94a3b8; max-width: 500px; font-size: 14px; line-height: 1.6; }
+        
+        /* ছবির স্টাইল */
+        .hero-img { flex: 1; display: flex; justify-content: center; }
+        .hero-img img {
+            width: 280px; height: 280px; object-fit: cover;
+            border-radius: 50%; /* ছবি গোল করার জন্য */
+            border: 4px solid #38bdf8;
+            box-shadow: 0 10px 30px rgba(56, 189, 248, 0.2);
+        }
+
+        /* --- মোবাইল স্ক্রিনের জন্য অ্যাডজাস্টমেন্ট --- */
+        @media (max-width: 768px) {
+            .hero-content { 
+                flex-direction: column-reverse; /* মোবাইলে ছবি উপরে এবং টেক্সট নিচে যাবে */
+                text-align: center; 
+            }
+            .hero-img img {
+                width: 180px; height: 180px; /* মোবাইলে ছবি একটু ছোট হবে */
+                margin-bottom: 20px;
+            }
+            /* ... তোমার আগের বাকি মোবাইল সিএসএস এখানে থাকবে ... */
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <div class="logo">Jarif.</div>
+        <div class="menu-toggle" id="mobile-menu-btn">
+            <i class="fas fa-bars" id="menu-icon"></i>
+        </div>
+        <ul class="nav-links" id="nav-menu">
+            <li><a href="#home" class="nav-item">Home</a></li>
+            <li><a href="#projects" class="nav-item">Projects</a></li>
+            <li><a href="#contact" class="nav-item">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+        <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text" data-aos="fade-right" data-aos-duration="1000">
+                <h1>Hi, I'm <span class="highlight">Ikram Hossain Khan Jarif</span></h1>
+                <h2>I create <span id="typed" class="highlight"></span></h2>
+                <p class="hero-p">Specializing in ultra-fast, secure, and modern  web architecture with minimal hosting costs.</p>
+                <a href="#projects" class="btn">View My Work</a>
+            </div>
+            
+            <div class="hero-img" data-aos="fade-left" data-aos-duration="1000">
+                <img src="my-image.webp" alt="Ikram Hossain Khan Jarif">
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <h2 class="section-title" data-aos="fade-up" data-aos-duration="800">My Projects</h2>
+        <div class="project-grid">
+            <!-- Project 1 -->
+            <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+                <h3>High School Website</h3>
+                <p>A dynamic-feeling static website built with HTML, CSS, and JS. 100% crash-proof and hosted on GitHub with Cloudflare CDN.</p>
+                <a href="#" class="project-link">Live Demo <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <!-- Project 2 -->
+            <div class="project-card" data-aos="fade-up" data-aos-delay="200">
+                <h3>Result Portal System</h3>
+                <p>An optimized static single-page application that fetches and displays academic results instantly from JSON data.</p>
+                <a href="#" class="project-link">Live Demo <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+    <section class="contact" id="contact">
+        <h2 class="section-title" data-aos="fade-up">Get In Touch</h2>
+        <p class="contact-p" data-aos="fade-up">আইডিয়া শেয়ার করতে চান বা নতুন কোনো প্রজেক্ট নিয়ে আলোচনা করতে চান? নির্দ্বিধায় নক দিন!</p>
+        
+                <div class="contact-buttons" data-aos="fade-up" data-aos-delay="200">
+            <!-- WhatsApp Button -->
+            <a href="https://wa.me/8801XXXXXXXXX?text=Hello%20Ikram,%20I%20visited%20your%20portfolio." target="_blank" class="contact-btn whatsapp-btn">
+                <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+            </a>
+            
+            <!-- Email Button -->
+            <a href="mailto:your-email@gmail.com" class="contact-btn email-btn">
+                <i class="fas fa-envelope"></i> Send Email
+            </a>
+        </div>
+
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Ikram Hossain Khan Jarif. All rights reserved.</p>
+    </footer>
+
+
+    <!-- JS Scripts for Animations & Mobile Menu -->
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script>
+        // Mobile Hamburger Menu Logic
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const navMenu = document.getElementById('nav-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        const navItems = document.querySelectorAll('.nav-item');
+
+        menuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            // Toggle Icon between Bars and Cross
+            menuIcon.classList.toggle('fa-bars');
+            menuIcon.classList.toggle('fa-times');
+        });
+
+        // Close menu when a link is clicked (Crucial for Mobile UI)
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                menuIcon.classList.add('fa-bars');
+                menuIcon.classList.remove('fa-times');
+            });
+        });
+
+        // Initialize AOS (Optimized for Mobile Performance)
+        AOS.init({
+            once: true,
+            disable: 'mobile' // Optional: If you want to disable heavy scroll animations on weak phones
+        });
+        // Note: Right now 'disable: mobile' is NOT set so you can test it. If mobile lags, we will enable it.
+
+        // Initialize Typed.js for Dynamic Typing Effect
+        var typed = new Typed('#typed', {
+            strings: ['Fast Websites.', 'Secure Apps.', 'Modern UI/UX.'], // Shortened strings to fit mobile screens perfectly
+            typeSpeed: 60,
+            backSpeed: 40,
+            loop: true
+        });
+    </script>
+</body>
+</html>
